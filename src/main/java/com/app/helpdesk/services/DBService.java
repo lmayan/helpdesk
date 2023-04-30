@@ -29,13 +29,22 @@ public class DBService {
 
 		Tecnico t1 = new Tecnico(null, "Tecnico 1", "11111111111", "tec1@email.com", "123");
 		t1.addPerfil(Perfil.TECNICO);
-
 		Cliente c1 = new Cliente(null, "Cliente 1", "11111111112", "cli1@email.com", "123");
 		Chamado ch1 = new Chamado(null, Prioridade.ALTA, Status.ABERTO, "Chamado 01", "obs1", c1, t1);
+		
+		Tecnico t2 = new Tecnico(null, "Tecnico 2", "11111111113", "tec2@email.com", "123");
+		t2.addPerfil(Perfil.TECNICO);
+		Cliente c2 = new Cliente(null, "Cliente 2", "11111111114", "cli2@email.com", "123");
+		Chamado ch2 = new Chamado(null, Prioridade.MEDIA, Status.ANDAMENTO, "Chamado 02", "obs2", c2, t2);
+		
+		Tecnico t3 = new Tecnico(null, "Tecnico 3", "11111111115", "tec3@email.com", "123");
+		t3.addPerfil(Perfil.TECNICO);
+		Cliente c3 = new Cliente(null, "Cliente 3", "11111111116", "cli3@email.com", "123");
+		Chamado ch3 = new Chamado(null, Prioridade.BAIXA, Status.ABERTO, "Chamado 03", "obs3", c3, t3);
 
-		tecnicoRepository.saveAll(Arrays.asList(t1));
-		clienteRepository.saveAll(Arrays.asList(c1));
-		chamadoRepository.saveAll(Arrays.asList(ch1));
+		tecnicoRepository.saveAll(Arrays.asList(t1,t2,t3));
+		clienteRepository.saveAll(Arrays.asList(c1,c2,c3));
+		chamadoRepository.saveAll(Arrays.asList(ch1,ch2,ch3));
 	}
 
 }
