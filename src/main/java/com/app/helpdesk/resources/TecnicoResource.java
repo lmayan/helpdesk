@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +52,7 @@ public class TecnicoResource {
 	}
 
 	@PostMapping
-	private ResponseEntity<TecnicoDTO> create(@RequestBody TecnicoDTO tecnicoDTO) {
+	private ResponseEntity<TecnicoDTO> create(@Valid @RequestBody TecnicoDTO tecnicoDTO) {
 
 		// Case 1
 		Tecnico tecnico = tecnicoService.create(tecnicoDTO);
