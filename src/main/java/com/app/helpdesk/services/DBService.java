@@ -39,13 +39,14 @@ public class DBService {
 		Cliente c1 = new Cliente(null, "Cliente 1", "11111111112", "cli1@email.com", "123");
 		Cliente c2 = new Cliente(null, "Cliente 2", "11111111114", "cli2@email.com", "123");
 		Cliente c3 = new Cliente(null, "Cliente 3", "11111111116", "cli3@email.com", "123");
+		Cliente c4 = new Cliente(null, "Cliente 4", "11111111118", "cli4@email.com", "123");
 
 		Chamado ch1 = new Chamado(null, Prioridade.ALTA, Status.ABERTO, "Chamado 01", "obs1", c1, t1);
 		Chamado ch2 = new Chamado(null, Prioridade.MEDIA, Status.ANDAMENTO, "Chamado 02", "obs2", c2, t2);
 		Chamado ch3 = new Chamado(null, Prioridade.BAIXA, Status.ABERTO, "Chamado 03", "obs3", c3, t3);
 
 		tecnicoRepository.saveAll(Arrays.asList(t1,t2,t3,t4));
-		clienteRepository.saveAll(Arrays.asList(c1,c2,c3));
+		clienteRepository.saveAll(Arrays.asList(c1,c2,c3,c4));
 		chamadoRepository.saveAll(Arrays.asList(ch1,ch2,ch3));
 	}
 
