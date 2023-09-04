@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.app.helpdesk.domain.Tecnico;
 import com.app.helpdesk.domain.dtos.TecnicoDTO;
 import com.app.helpdesk.services.TecnicoService;
+import com.app.helpdesk.services.exceptions.DataIntegrityViolationException;
 
 @RestController
 @RequestMapping("/tecnicos")
@@ -77,6 +79,12 @@ public class TecnicoResource {
 	private ResponseEntity<TecnicoDTO> update(@Valid @RequestBody TecnicoDTO tecnicoDTO) {
 		Tecnico tecnico = tecnicoService.update(tecnicoDTO);
 		return ResponseEntity.ok(new TecnicoDTO(tecnico));
+	}
+	
+	@DeleteMapping("/{id}")
+	private ResponseEntity<TecnicoDTO> delete(@PathVariable Integer id) {
+		tecnicoService.delete(id);
+		return ResponseEntity.ok().build();
 	}
 
 }

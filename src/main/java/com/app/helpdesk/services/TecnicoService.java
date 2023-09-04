@@ -59,4 +59,12 @@ public class TecnicoService {
 		return tecnicoRepository.save(tecnico);
 	}
 
+	public void delete(Integer id) {
+		Tecnico tecnico = findById(id);
+		if(tecnico.getChamados().size() > 0) {
+			throw new DataIntegrityViolationException("Tecnico have one or more bind. (chamados)");
+		}
+		tecnicoRepository.delete(tecnico);
+	}
+
 }
