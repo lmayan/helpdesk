@@ -3,6 +3,8 @@ package com.app.helpdesk.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,6 +50,13 @@ public class TecnicoService {
 		if(obj.isPresent() && obj.get().getId() != tecnicoDTO.getId()) {
 			throw new DataIntegrityViolationException("EMAIL ("+tecnicoDTO.getEmail()+") is already in use.");
 		}
+	}
+
+	public Tecnico update(@Valid TecnicoDTO tecnicoDTO) {
+		Tecnico tecnico = findById(tecnicoDTO.getId());
+		validForCPFAndEmail(tecnicoDTO);
+		tecnico = new Tecnico(tecnicoDTO);
+		return tecnicoRepository.save(tecnico);
 	}
 
 }
