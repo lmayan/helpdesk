@@ -21,7 +21,9 @@ public class TecnicoDTO implements Serializable {
 	protected String nome;
 	@NotNull(message = "(cpf) is required")
 	protected String cpf;
+	@NotNull(message = "(email) is required")
 	protected String email;
+	@NotNull(message = "(senha) is required")
 	protected String senha;
 	protected Set<Integer> perfis = new HashSet<>();
 	@JsonFormat(pattern = "dd/MM/yyyy")
