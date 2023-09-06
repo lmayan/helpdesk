@@ -3,6 +3,8 @@ package com.app.helpdesk.domain.dtos;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.validation.constraints.NotNull;
+
 import com.app.helpdesk.domain.Chamado;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -10,11 +12,17 @@ public class ChamadoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
+	@NotNull(message = "(prioridade) is required")
 	private Integer prioridade;
+	@NotNull(message = "(status) is required")
 	private Integer status;
+	@NotNull(message = "(titulo) is required")
 	private String titulo; 
+	@NotNull(message = "(observacao) is required")
 	private String observacao;
+	@NotNull(message = "(cliente) is required")
 	private Integer cliente;
+	@NotNull(message = "(tecnico) is required")
 	private Integer tecnico;
 	private String nomeTecnico;
 	private String nomeCliente;
