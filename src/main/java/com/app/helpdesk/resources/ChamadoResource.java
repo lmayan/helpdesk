@@ -29,27 +29,27 @@ public class ChamadoResource {
 	private ChamadoService chamadoService;
 
 	@GetMapping("/{id}")
-	private ResponseEntity<ChamadoDTO> findById(@PathVariable Integer id) {
+	public ResponseEntity<ChamadoDTO> findById(@PathVariable Integer id) {
 		Chamado obj = chamadoService.findById(id);
 		return ResponseEntity.ok().body(new ChamadoDTO(obj));
 	}
 	
 	@GetMapping
-	private ResponseEntity<List<ChamadoDTO>> findAll(){
+	public ResponseEntity<List<ChamadoDTO>> findAll(){
 		List<Chamado> list = chamadoService.findAll();
 		List<ChamadoDTO> listDTO = list.stream().map(chamado -> new ChamadoDTO(chamado)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}
 	
 	@PostMapping
-	private ResponseEntity<ChamadoDTO> create(@Valid @RequestBody ChamadoDTO chamadoDTO){
+	public ResponseEntity<ChamadoDTO> create(@Valid @RequestBody ChamadoDTO chamadoDTO){
 		Chamado chamado = chamadoService.create(chamadoDTO);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(chamado.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
 	@PutMapping(value = "/{id}")
-	private ResponseEntity<ChamadoDTO> update(@PathVariable Integer id ,@Valid @RequestBody ChamadoDTO chamadoDTO) {
+	public ResponseEntity<ChamadoDTO> update(@PathVariable Integer id ,@Valid @RequestBody ChamadoDTO chamadoDTO) {
 		Chamado chamado = chamadoService.update(id, chamadoDTO);
 		return ResponseEntity.ok(new ChamadoDTO(chamado));
 	}

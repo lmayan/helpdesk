@@ -30,20 +30,20 @@ public class ClienteResource {
 	private ClienteService clienteService;
 
 	@GetMapping("/{id}")
-	private ResponseEntity<ClienteDTO> findById(@PathVariable Integer id) {
+	public ResponseEntity<ClienteDTO> findById(@PathVariable Integer id) {
 		Cliente obj = clienteService.findById(id);
 		return ResponseEntity.ok().body(new ClienteDTO(obj));
 	}
 
 	@GetMapping
-	private ResponseEntity<List<ClienteDTO>> findAll() {
+	public ResponseEntity<List<ClienteDTO>> findAll() {
 		List<Cliente> list = clienteService.findAll();
 		List<ClienteDTO> listDTO = list.stream().map(tec -> new ClienteDTO(tec)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}
 
 	@PostMapping
-	private ResponseEntity<ClienteDTO> create(@Valid @RequestBody ClienteDTO clienteDTO) {
+	public ResponseEntity<ClienteDTO> create(@Valid @RequestBody ClienteDTO clienteDTO) {
 
 		Cliente cliente = clienteService.create(clienteDTO);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(cliente.getId()).toUri();
@@ -51,13 +51,13 @@ public class ClienteResource {
 	}
 	
 	@PutMapping
-	private ResponseEntity<ClienteDTO> update(@Valid @RequestBody ClienteDTO clienteDTO) {
+	public ResponseEntity<ClienteDTO> update(@Valid @RequestBody ClienteDTO clienteDTO) {
 		Cliente cliente = clienteService.update(clienteDTO);
 		return ResponseEntity.ok(new ClienteDTO(cliente));
 	}
 	
 	@DeleteMapping("/{id}")
-	private ResponseEntity<ClienteDTO> delete(@PathVariable Integer id) {
+	public ResponseEntity<ClienteDTO> delete(@PathVariable Integer id) {
 		clienteService.delete(id);
 		return ResponseEntity.ok().build();
 	}
