@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +22,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.app.helpdesk.domain.Tecnico;
 import com.app.helpdesk.domain.dtos.TecnicoDTO;
 import com.app.helpdesk.services.TecnicoService;
-import com.app.helpdesk.services.exceptions.DataIntegrityViolationException;
 
 @RestController
 @RequestMapping("/tecnicos")
@@ -31,13 +31,13 @@ public class TecnicoResource {
 	private TecnicoService tecnicoService;
 
 	@GetMapping("/{id}")
-	private ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id) {
+	public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id) {
 		Tecnico obj = tecnicoService.findById(id);
 		return ResponseEntity.ok().body(new TecnicoDTO(obj));
 	}
 
 	@GetMapping
-	private ResponseEntity<List<TecnicoDTO>> findAll() {
+	public ResponseEntity<List<TecnicoDTO>> findAll() {
 		List<Tecnico> list = tecnicoService.findAll();
 
 		// Using STREAM
@@ -52,8 +52,9 @@ public class TecnicoResource {
 		return ResponseEntity.ok().body(listDTO);
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PostMapping
-	private ResponseEntity<TecnicoDTO> create(@Valid @RequestBody TecnicoDTO tecnicoDTO) {
+	public ResponseEntity<TecnicoDTO> create(@Valid @RequestBody TecnicoDTO tecnicoDTO) {
 
 		// Case 1
 		Tecnico tecnico = tecnicoService.create(tecnicoDTO);
@@ -75,14 +76,16 @@ public class TecnicoResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PutMapping
-	private ResponseEntity<TecnicoDTO> update(@Valid @RequestBody TecnicoDTO tecnicoDTO) {
+	public ResponseEntity<TecnicoDTO> update(@Valid @RequestBody TecnicoDTO tecnicoDTO) {
 		Tecnico tecnico = tecnicoService.update(tecnicoDTO);
 		return ResponseEntity.ok(new TecnicoDTO(tecnico));
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping("/{id}")
-	private ResponseEntity<TecnicoDTO> delete(@PathVariable Integer id) {
+	public ResponseEntity<TecnicoDTO> delete(@PathVariable Integer id) {
 		tecnicoService.delete(id);
 		return ResponseEntity.ok().build();
 	}
